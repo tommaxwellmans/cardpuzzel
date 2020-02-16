@@ -86,15 +86,26 @@ class Lane {
     }
 
     getNearRestBad() {
-        return this.bads[this.bads.length - 1];
+        let nearestBad = null;
+
+        this.bads.forEach(b => {
+                if (b.isAlive()) {
+                    nearestBad = b;
+                }
+            }
+        );
+        return nearestBad;
     }
 
     catsAttack(cats) {
 
         let self = this;
 
-        this.cats.forEach(c => {
-            self.getNearRestBad().hurt(c.getAttack())
+        this.cats.forEach(cat => {
+            let nearestBad = self.getNearRestBad();
+            if (nearestBad != null) {
+                nearestBad.hurt(cat.getAttack())
+            }
         });
     }
 
@@ -105,24 +116,17 @@ class Lane {
     }
 
     matchingCats(card) {
-        let catMatchesCard = function (cat, card) {
-            card.getCatColors().forEach(
-                col => {
-                    if (col === cat.getColor())
-                        return true;
-                }
-            );
-            return false;
-        };
 
-        let matchingCats = [];
+        let obeyingCats = [];
 
-        this.cats.forEach(c => {
-            if (catMatchesCard(c, card))
-                matchingCats.push(c)
+        this.cats.forEach(cat => {
+            let obeys = cat.obeys(card);
+            if (obeys) {
+                obeyingCats.push(cat);
+            }
         });
 
-        return matchingCats;
+        return obeyingCats;
     }
 
 

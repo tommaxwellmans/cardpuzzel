@@ -6,7 +6,7 @@ class Character {
         this.sprite = sprite;
     }
 
-    isDead() {
+    isAlive() {
         return this.health > 0;
     }
 
@@ -28,9 +28,24 @@ class Character {
 
     hurt (damage) {
         this.health -= damage;
+
+        if (!this.isAlive()) {
+            this.onDeath();
+        }
+
     }
 
     defend (block) {
         this.block += block;
     }
+
+    onDeath() {
+
+        // play death animation
+
+        // hide sprite
+        this.getSprite().visible = false;
+
+    }
+
 }

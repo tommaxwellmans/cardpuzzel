@@ -12,4 +12,17 @@ class Cat extends Character {
     getColor() {
         return this.color;
     }
+
+    obeys(card) {
+        let obeys = false;
+        card.getCatColors().forEach(
+            color => {
+                if (color === this.getColor()) {
+                    obeys = true;
+                }
+            }
+        );
+        return obeys;
+    }
+
 }
