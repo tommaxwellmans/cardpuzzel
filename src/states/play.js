@@ -4,6 +4,7 @@ const catLaneOffSet = 50;
 
 var badGenerator = new BadGenerator(5);
 var catGenerator = new CatGenerator(6);
+var cardGenerator = new CardGenerator();
 
 play.preload = function () {
     Kiwi.State.prototype.preload.call(this);
@@ -43,18 +44,6 @@ play.create = function () {
     this.sky = new Kiwi.GameObjects.StaticImage(this, this.textures.sky, 0, 0);
     this.ground = new Kiwi.GameObjects.StaticImage(this, this.textures.ground, 0, 100);
 
-    this.whiteCatsAttack = new Kiwi.GameObjects.Sprite(this, this.textures.whiteCatsAttack, 40, 0);
-    this.blackCatsAttack = new Kiwi.GameObjects.Sprite(this, this.textures.blackCatsAttack, 140, 0);
-
-    this.whiteCatsBlock = new Kiwi.GameObjects.Sprite(this, this.textures.whiteCatsBlock, 240, 0);
-    this.blackCatsBlock = new Kiwi.GameObjects.Sprite(this, this.textures.blackCatsBlock, 340, 0);
-
-    this.whiteCatsAttackAndBlock = new Kiwi.GameObjects.Sprite(this, this.textures.whiteCatsAttackAndBlock, 440, 0);
-    this.blackCatsAttackAndBlock = new Kiwi.GameObjects.Sprite(this, this.textures.blackCatsAttackAndBlock, 540, 0);
-
-    this.blackAndWhiteCatsAttack = new Kiwi.GameObjects.Sprite(this, this.textures.blackAndWhiteCatsAttack, 640, 0);
-    this.blackAndWhiteCatsBlock = new Kiwi.GameObjects.Sprite(this, this.textures.blackAndWhiteCatsBlock, 740, 0);
-
     this.background = new Kiwi.Group(this);
     this.background.addChild(this.sky);
     this.background.addChild(this.ground);
@@ -86,22 +75,25 @@ play.create = function () {
     //
 
     this.cats = catGenerator.generate();
-    this.cats.forEach(
-        function (cat) { play.lanes[cat.lane].addCat(play.makeCat(cat)); }
-    );
+    this.cats.forEach( cat => { play.lanes[cat.lane].addCat(play.makeCat(cat)); });
 
     //
     // add bad things to the lanes
     //
 
     this.bads = badGenerator.generate();
-    this.bads.forEach(
-        function (bad) { play.lanes[bad.lane].addBad(play.makeBad(bad)); }
-    );
+    this.bads.forEach( bad => { play.lanes[bad.lane].addBad(play.makeBad(bad)); });
+
+    ///
+    /// start building the hand
+    ///
+
+    this.hand = new Hand(5, new Kiwi.Group(this));
+    this.cards = cardGenerator.generate();
+    this.cards.forEach( card => { play.hand.addCard(play.makeCard(card)) });
 
     // create hand object to render in the correct place
-    this.hand = new Kiwi.Group(this);
-    this.hand.y += 500;
+
 
     // this.redAndBlueAttachCardImage.input.onDown.add(
     //     function (event) {
@@ -114,14 +106,14 @@ play.create = function () {
     // Add elements to the state
     //
 
-    this.hand.addChild(this.whiteCatsAttack);
-    this.hand.addChild(this.blackCatsAttack);
-    this.hand.addChild(this.whiteCatsBlock);
-    this.hand.addChild(this.blackCatsBlock);
-    this.hand.addChild(this.whiteCatsAttackAndBlock);
-    this.hand.addChild(this.blackCatsAttackAndBlock);
-    this.hand.addChild(this.blackAndWhiteCatsAttack);
-    this.hand.addChild(this.blackAndWhiteCatsBlock);
+    // this.hand.addChild(this.whiteCatsAttack);
+    // this.hand.addChild(this.blackCatsAttack);
+    // this.hand.addChild(this.whiteCatsBlock);
+    // this.hand.addChild(this.blackCatsBlock);
+    // this.hand.addChild(this.whiteCatsAttackAndBlock);
+    // this.hand.addChild(this.blackCatsAttackAndBlock);
+    // this.hand.addChild(this.blackAndWhiteCatsAttack);
+    // this.hand.addChild(this.blackAndWhiteCatsBlock);
 
     this.addChild(this.background);
 
@@ -129,7 +121,7 @@ play.create = function () {
     this.addChild(this.lane2.getGroup());
     this.addChild(this.lane3.getGroup());
 
-    this.addChild(this.hand);
+    this.addChild(this.hand.getGroup());
 
 
 
@@ -155,6 +147,16 @@ play.makeCat = function(catPlan) {
 // creates a cat object for a cat plan?
 play.makeBad = function(badPlan) {
     return new Bad(new Kiwi.GameObjects.Sprite(this, this.textures.bad1, 0, 0));
+};
+
+// creates a cat object for a cat plan?
+play.makeCard = function(cardPlan) {
+    return new Card(
+        cardPlan.name,
+        new Kiwi.GameObjects.Sprite(this, this.textures[cardPlan.sprite], 0, 0),
+        cardPlan.colors,
+        cardPlan.actions
+    );
 };
 
 game.states.addState(play);
