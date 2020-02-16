@@ -89,7 +89,12 @@ play.create = function () {
     ///
 
     this.hand = new Hand(5, new Kiwi.Group(this));
+	this.discard = new Hand(100, new Kiwi.Group(this));
+	
     this.cards = cardGenerator.generate();
+	
+	
+	
     this.cards.forEach( card => { play.hand.addCard(play.makeCard(card)) });
 
     // create hand object to render in the correct place
