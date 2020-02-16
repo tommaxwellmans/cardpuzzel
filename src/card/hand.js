@@ -26,6 +26,11 @@ class Hand {
         this.limit = limit;
         this.group = new Kiwi.Group(state);
         this.group.y = GameDimension.Height - Hand.height;
+        this.world = null;
+    }
+
+    setWorld(world) {
+        this.world = world;
     }
 
     getGroup() {
@@ -48,8 +53,8 @@ class Hand {
         card.getSprite().input.onEntered.add( this.highlightCard, this );
         card.getSprite().input.onLeft.add( this.lowLightCard, this );
 
-		card.makeClickable();//get the card to have a click listener
-		card.setHand(this);//tell it what hand it is in
+        card.makeClickable();//get the card to have a click listener
+        card.setHand(this);//tell it what hand it is in
 
         // add to the list of cats
         this.cards.push(card);
@@ -85,8 +90,8 @@ class Hand {
 
         console.log("Left card");
 
-         if (this.highLightedCard === null) {
-             return ; // this card is highlighted
+        if (this.highLightedCard === null) {
+            return ; // this card is highlighted
         }
         //  if (this.highLightedCard === null && this.highLightedCard  !== cardSprite) {
         //      return ; // this card is highlighted
@@ -97,26 +102,28 @@ class Hand {
         this.highLightedCard.scaleY = 1;
 
         //this.normalCards.addChild(cardSprite);
-       // this.highLightedCards.removeChild(cardSprite);
+        // this.highLightedCards.removeChild(cardSprite);
 
 
         this.highLightedCard = null;
 
     }
 
-	removeCard(clickedCard){
-		
-		console.log("tried to remove" + clickedCard);
-		
-		//clickedCard.getSprite().visible = false;
+    play(card) {
+        this.world.play(card);
+        this.removeCard(card);
+    }
 
-	console.log("already gone from cards in hand."+this.cards.length);
-		
-		//cards/or the hand need to have a pointer to the discard pile (hand object) if we want them to go there
-		//this.discard.push(card);//could instead add it to active cards for comboes
-		
-		
-		
-	}
+    removeCard(clickedCard) {
+
+        console.log("tried to remove" + clickedCard);
+        console.log("already gone from cards in hand."+this.cards.length);
+
+        //cards/or the hand need to have a pointer to the discard pile (hand object) if we want them to go there
+        //this.discard.push(card);//could instead add it to active cards for comboes
+
+
+
+    }
 
 }

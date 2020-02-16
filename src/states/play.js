@@ -39,8 +39,6 @@ play.create = function () {
 
     Kiwi.State.prototype.create.call(this);
 
-    var cats = catGenerator.generate();
-
     this.sky = new Kiwi.GameObjects.StaticImage(this, this.textures.sky, 0, 0);
     this.ground = new Kiwi.GameObjects.StaticImage(this, this.textures.ground, 0, 100);
 
@@ -75,14 +73,14 @@ play.create = function () {
     //
 
     this.cats = catGenerator.generate();
-    this.cats.forEach( cat => { play.lanes[cat.lane].addCat(play.makeCat(cat)); });
+    this.cats.forEach( cat => play.lanes[cat.lane].addCat(play.makeCat(cat)) );
 
     //
     // add bad things to the lanes
     //
 
     this.bads = badGenerator.generate();
-    this.bads.forEach( bad => { play.lanes[bad.lane].addBad(play.makeBad(bad)); });
+    this.bads.forEach( bad => play.lanes[bad.lane].addBad(play.makeBad(bad)) );
 
     ///
     /// start building the hand
@@ -95,17 +93,19 @@ play.create = function () {
 	
 	
 	
-    this.cards.forEach( card => { play.hand.addCard(play.makeCard(card)) });
+    this.cards.forEach( card => play.hand.addCard(play.makeCard(card)) );
 
-    // create hand object to render in the correct place
+    ///
+    /// Build the game system object
+    ///
 
+    this.world = new World(
+        this.hand,
+        this.deck,
+        this.discard,
+        this.lanes
+    );
 
-    // this.redAndBlueAttachCardImage.input.onDown.add(
-    //     function (event) {
-    //         //this.cat1.x += 10;
-    //     },
-    //     this
-    // );
 
     this.addChild(this.background);
 
