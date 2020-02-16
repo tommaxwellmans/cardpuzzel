@@ -1,4 +1,4 @@
-class BadThing extends Character {
+class Bad extends Character {
 
     constructor(sprite) {
         super(sprite);

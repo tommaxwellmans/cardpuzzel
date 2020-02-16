@@ -19,7 +19,7 @@ play.preload = function () {
     this.addSpriteSheet( 'catBlack', 'asset/cat/spritesheet3.png', 60, 40);
     this.addSpriteSheet( 'catWhite', 'asset/cat/spritesheet3white.png', 60, 40);
 
-    this.addSpriteSheet( 'catBad', 'asset/bad/badSheet1.png', 60, 40);
+    this.addSpriteSheet( 'bad1', 'asset/bad/badSheet1.png', 60, 40);
 
 };
 
@@ -43,43 +43,42 @@ play.create = function () {
     ///
     ///  setup the lanes
     ///
+    this.lanes = [];
     this.lane1 = new Lane (
         new Kiwi.Group(this),
         new Kiwi.GameObjects.StaticImage(this, this.textures.lane, 0, 0)
     );
+    this.lanes[LaneNumber.Lane1] = this.lane1;
 
     this.lane2 = new Lane (
         new Kiwi.Group(this),
         new Kiwi.GameObjects.StaticImage(this, this.textures.lane, 0, 0)
     );
+    this.lanes[LaneNumber.Lane2] = this.lane2;
 
     this.lane3 = new Lane (
         new Kiwi.Group(this),
         new Kiwi.GameObjects.StaticImage(this, this.textures.lane, 0, 0)
     );
+    this.lanes[LaneNumber.Lane3] = this.lane3;
 
     //
     // add cats to lanes
     //
 
     this.cats = catGenerator.generate();
-    for(var i = 0; i< cats.length; i++) {
-        var lane;
-        switch (cats[i].lane) {
-            case LaneNumber.Lane1:
-                lane = this.lane1;
-                break;
-            case LaneNumber.Lane2:
-                lane = this.lane2;
-                break;
-            case LaneNumber.Lane3:
-                lane = this.lane3;
-                break;
-        }
+    this.cats.forEach(
+        function (cat) { play.lanes[cat.lane].addCat(play.makeCat(cat)); }
+    );
 
-        lane.addCat(this.makeCat(cats[i]));
+    //
+    // add bad things to the lanes
+    //
 
-    }
+    this.bads = badGenerator.generate();
+    this.bads.forEach(
+        function (bad) { play.lanes[bad.lane].addBad(play.makeBad(bad)); }
+    );
 
     // create hand object to render in the correct place
     this.hand = new Kiwi.Group(this);
@@ -127,6 +126,11 @@ play.makeCat = function(catPlan) {
             break;
     }
     return new Cat(catPlan.color, sprite);
+};
+
+// creates a cat object for a cat plan?
+play.makeBad = function(badPlan) {
+    return new Bad(new Kiwi.GameObjects.Sprite(this, this.textures.bad1, 0, 0));
 };
 
 game.states.addState(play);

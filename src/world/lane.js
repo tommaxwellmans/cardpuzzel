@@ -41,4 +41,17 @@ class Lane {
 
     }
 
+    addBad(bad) {
+
+        // add to the list of cats
+        this.cats.push(bad);
+
+        // adjust for amount of cat in the lane
+        bad.getSprite().x = GameDimension.Width - Lane.characterXOffset - (Lane.characterSpacing * this.bads.length);
+
+        // add the cat sprite to the lanes gui
+        this.group.addChild(bad.getSprite());
+
+    }
+
 }
