@@ -12,9 +12,20 @@ play.preload = function () {
     this.addImage('lane', 'asset/background/lane.png');
     this.addImage('sky', 'asset/background/sky.png');
 
-    this.addImage('redAndBlueAttackCard', 'asset/card/redAndBlueAttack.png');
-    this.addImage('yellowAndBlueAttack', 'asset/card/yellowAndBlueAttack.png');
-    this.addImage('yellowAndRedAttack', 'asset/card/yellowAndRedAttack.png');
+    this.addImage('whiteCatsAttack', 'asset/card/whiteCatsAttack.png');
+    this.addImage('blackCatsAttack', 'asset/card/blackCatsAttack.png');
+
+    this.addImage('whiteCatsBlock', 'asset/card/whiteCatsBlock.png');
+    this.addImage('blackCatsBlock', 'asset/card/blackCatsBlock.png');
+
+    this.addImage('whiteCatsAttackAndBlock', 'asset/card/whiteCatsAttackAndBlock.png');
+    this.addImage('blackCatsAttackAndBlock', 'asset/card/blackCatsAttackAndBlock.png');
+
+    this.addImage('whiteCatsAttackAndBlock', 'asset/card/whiteCatsAttackAndBlock.png');
+    this.addImage('blackCatsAttackAndBlock', 'asset/card/blackCatsAttackAndBlock.png');
+
+    this.addImage('blackAndWhiteCatsAttack', 'asset/card/blackAndWhiteCatsAttack.png');
+    this.addImage('blackAndWhiteCatsBlock', 'asset/card/blackAndWhiteCatsBlock.png');
 
     this.addSpriteSheet( 'catBlack', 'asset/cat/spritesheet3.png', 60, 40);
     this.addSpriteSheet( 'catWhite', 'asset/cat/spritesheet3white.png', 60, 40);
@@ -32,9 +43,17 @@ play.create = function () {
     this.sky = new Kiwi.GameObjects.StaticImage(this, this.textures.sky, 0, 0);
     this.ground = new Kiwi.GameObjects.StaticImage(this, this.textures.ground, 0, 100);
 
-    this.redAndBlueAttachCardImage = new Kiwi.GameObjects.Sprite(this, this.textures.redAndBlueAttackCard, 40, 0);
-    this.yellowAndBlueAttack = new Kiwi.GameObjects.Sprite(this, this.textures.yellowAndBlueAttack, 240, 0);
-    this.yellowAndRedAttack = new Kiwi.GameObjects.Sprite(this, this.textures.yellowAndRedAttack, 440, 0);
+    this.whiteCatsAttack = new Kiwi.GameObjects.Sprite(this, this.textures.whiteCatsAttack, 40, 0);
+    this.blackCatsAttack = new Kiwi.GameObjects.Sprite(this, this.textures.blackCatsAttack, 140, 0);
+
+    this.whiteCatsBlock = new Kiwi.GameObjects.Sprite(this, this.textures.whiteCatsBlock, 240, 0);
+    this.blackCatsBlock = new Kiwi.GameObjects.Sprite(this, this.textures.blackCatsBlock, 340, 0);
+
+    this.whiteCatsAttackAndBlock = new Kiwi.GameObjects.Sprite(this, this.textures.whiteCatsAttackAndBlock, 440, 0);
+    this.blackCatsAttackAndBlock = new Kiwi.GameObjects.Sprite(this, this.textures.blackCatsAttackAndBlock, 540, 0);
+
+    this.blackAndWhiteCatsAttack = new Kiwi.GameObjects.Sprite(this, this.textures.blackAndWhiteCatsAttack, 640, 0);
+    this.blackAndWhiteCatsBlock = new Kiwi.GameObjects.Sprite(this, this.textures.blackAndWhiteCatsBlock, 740, 0);
 
     this.background = new Kiwi.Group(this);
     this.background.addChild(this.sky);
@@ -84,20 +103,25 @@ play.create = function () {
     this.hand = new Kiwi.Group(this);
     this.hand.y += 500;
 
-    this.redAndBlueAttachCardImage.input.onDown.add(
-        function (event) {
-            //this.cat1.x += 10;
-        },
-        this
-    );
+    // this.redAndBlueAttachCardImage.input.onDown.add(
+    //     function (event) {
+    //         //this.cat1.x += 10;
+    //     },
+    //     this
+    // );
 
     //
     // Add elements to the state
     //
 
-    this.hand.addChild(this.redAndBlueAttachCardImage);
-    this.hand.addChild(this.yellowAndBlueAttack);
-    this.hand.addChild(this.yellowAndRedAttack);
+    this.hand.addChild(this.whiteCatsAttack);
+    this.hand.addChild(this.blackCatsAttack);
+    this.hand.addChild(this.whiteCatsBlock);
+    this.hand.addChild(this.blackCatsBlock);
+    this.hand.addChild(this.whiteCatsAttackAndBlock);
+    this.hand.addChild(this.blackCatsAttackAndBlock);
+    this.hand.addChild(this.blackAndWhiteCatsAttack);
+    this.hand.addChild(this.blackAndWhiteCatsBlock);
 
     this.addChild(this.background);
 
