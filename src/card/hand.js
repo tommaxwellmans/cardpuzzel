@@ -2,7 +2,7 @@ class Hand {
 
 
     // constant of spacing between cards in the had
-    static cardSpacing = 50;
+    static cardSpacing = 175;
 
     // buffer on the x axis
     static cardXOffset = 10;
@@ -34,11 +34,11 @@ class Hand {
             return;
         }
 
-        // add to the list of cats
-        this.cards.push(card);
-
         // adjust for amount of cat in the lane
         card.getSprite().x = Hand.cardXOffset + Hand.cardSpacing * this.cards.length;
+
+        // add to the list of cats
+        this.cards.push(card);
 
         // add the cat sprite to the lanes gui
         this.group.addChild(card.getSprite());
