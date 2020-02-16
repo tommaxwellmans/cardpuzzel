@@ -110,6 +110,7 @@ class Hand {
     }
 
     play(card) {
+        console.log("played card" + card.getName());
         this.world.play(card);
         this.removeCard(card);
     }
@@ -118,6 +119,11 @@ class Hand {
 
         console.log("tried to remove" + clickedCard);
         console.log("already gone from cards in hand."+this.cards.length);
+
+        clickedCard.getSprite().visible = false
+
+        //this.group.removeChild(clickedCard.getSprite());
+
 
         //cards/or the hand need to have a pointer to the discard pile (hand object) if we want them to go there
         //this.discard.push(card);//could instead add it to active cards for comboes
