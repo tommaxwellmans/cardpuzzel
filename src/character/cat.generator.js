@@ -3,8 +3,14 @@ function CatGenerator (amountOfCats) {
 }
 
 CatGenerator.prototype.generate = function () {
-    return {
-        lane: Math.random() % 3,
-        cat: new Cat(((Math.random() % 2) === 0) ? CatColor.White :  CatColor.Black)
-    };
+    var cats = [];
+    for (var i = 0; i < this.amountOfCats; i++) {
+        cats.push(
+        {
+            lane: Math.floor(Math.random() * 10) % 3,
+                cat: new Cat(((Math.floor(Math.random() * 10) % 2) === 0) ? CatColor.White :  CatColor.Black)
+        }
+        );
+    }
+    return cats;
 };

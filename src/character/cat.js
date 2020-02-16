@@ -1,8 +1,15 @@
-function Cat(color) {
-    Character.prototype.call(this);
-    this.color = color;
-}
+class Cat extends Character {
 
-Cat.prototype.getColor = function () {
-    return this.color;
-};
+    constructor (color) {
+        super();
+        this.color = color;
+    }
+
+    /**
+     *  Return the cats colour
+     * @returns {*}
+     */
+    getColor() {
+        return this.color;
+    }
+}
