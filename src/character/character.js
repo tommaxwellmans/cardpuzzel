@@ -18,6 +18,14 @@ class Character {
         return this.sprite;
     }
 
+    getWidth() {
+        return this.getSprite().width;
+    }
+
+    getHeight() {
+        return this.getSprite().height;
+    }
+
     hurt (damage) {
         this.health -= damage;
     }

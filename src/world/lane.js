@@ -8,7 +8,7 @@ class Lane {
     static laneSpacing = 100;
 
     // constant of spacing between characters in the lane
-    static characterSpacing = 60;
+    static characterSpacing = 15;
 
     // buffer on the x axis
     static characterXOffset = 10;
@@ -31,7 +31,7 @@ class Lane {
     addCat(cat) {
 
         // adjust for amount of cat in the lane
-        cat.getSprite().x = Lane.characterXOffset + Lane.characterSpacing * this.cats.length;
+        cat.getSprite().x = Lane.characterXOffset + (cat.getWidth() + Lane.characterSpacing) * this.cats.length;
 
         // add to the list of cats
         this.cats.push(cat);
@@ -44,10 +44,10 @@ class Lane {
     addBad(bad) {
 
         // add to the list of cats
-        this.cats.push(bad);
+        this.bads.push(bad);
 
         // adjust for amount of cat in the lane
-        bad.getSprite().x = GameDimension.Width - Lane.characterXOffset - (Lane.characterSpacing * this.bads.length);
+        bad.getSprite().x = GameDimension.Width - (Lane.characterXOffset + (bad.getWidth() + Lane.characterSpacing) * this.bads.length);
 
         // add the cat sprite to the lanes gui
         this.group.addChild(bad.getSprite());
