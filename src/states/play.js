@@ -6,6 +6,9 @@ play.preload = function () {
     this.addImage('background', 'background.png');
 
     this.addImage('redAndBlueAttackCard', 'asset/card/redAndBlueAttack.png')
+	
+	this.addSpriteSheet( 'characterSprite', 'asset/cat/spritesheet3.png', 60, 40);
+	this.addSpriteSheet( 'characterSprite2', 'asset/cat/spritesheet3white.png', 60, 40);
 
 };
 
@@ -17,14 +20,21 @@ play.create = function () {
 
     this.redAndBlueAttachCardImage = new Kiwi.GameObjects.StaticImage(this, this.textures.redAndBlueAttackCard, 40, 500);
 
+	this.cat1 = new Kiwi.GameObjects.Sprite(this, this.textures.characterSprite, 100,270 )
+	this.cat2 = new Kiwi.GameObjects.Sprite(this, this.textures.characterSprite2, 170,270 )
+
     // create hand object to render in the correct place
     this.hand = new Kiwi.Group(this);
     this.hand.addChild(this.redAndBlueAttachCardImage);
 
 
     this.addChild(this.background);
+	this.addChild(this.cat1);
+	this.addChild(this.cat2);
 
     this.addChild(this.hand);
+	
+	
 
 };
 
