@@ -3,7 +3,9 @@ var play = new Kiwi.State('play');
 
 play.preload = function () {
     Kiwi.State.prototype.preload.call(this);
-    this.addImage('background', 'background.png');
+
+    this.addImage('ground', 'asset/background/ground.png');
+    this.addImage('sky', 'asset/background/sky.png');
 
     this.addImage('redAndBlueAttackCard', 'asset/card/redAndBlueAttack.png');
     this.addImage('yellowAndBlueAttack', 'asset/card/yellowAndBlueAttack.png');
@@ -18,7 +20,9 @@ play.create = function () {
 
     Kiwi.State.prototype.create.call(this);
 
-    this.background = new Kiwi.GameObjects.StaticImage(this, this.textures.background, 0, 0);
+    this.background = new Kiwi.Group(this);
+    this.sky = new Kiwi.GameObjects.StaticImage(this, this.textures.sky, 0, 0);
+    this.ground = new Kiwi.GameObjects.StaticImage(this, this.textures.ground, 0, 100);
 
     this.redAndBlueAttachCardImage = new Kiwi.GameObjects.Sprite(this, this.textures.redAndBlueAttackCard, 40, 0);
     this.yellowAndBlueAttack = new Kiwi.GameObjects.Sprite(this, this.textures.yellowAndBlueAttack, 240, 0);
@@ -37,6 +41,14 @@ play.create = function () {
         },
         this
     );
+
+    //
+    // Add elements to the state
+    //
+
+    this.background.addChild(this.sky);
+    this.background.addChild(this.ground);
+    this.addChild(this.background);
 
     this.hand.addChild(this.redAndBlueAttachCardImage);
     this.hand.addChild(this.yellowAndBlueAttack);
