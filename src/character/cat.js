@@ -1,7 +1,7 @@
 class Cat extends Character {
 
-    constructor (color) {
-        super();
+    constructor (color, sprite) {
+        super(sprite);
         this.color = color;
     }
 
