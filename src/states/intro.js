@@ -13,12 +13,19 @@ intro.create = function () {
 
     this.addChild(this.splashArt);
 
+    // create a key listener to move onto the next screen
+    this.game.input.keyboard.onKeyDownOnce.add(this.switchState, this);
+
 };
 
 intro.update = function () {
     if (this.game.input.mouse.isDown) {
         game.states.switchState('play');
     }
+};
+
+intro.switchState = function () {
+    game.states.switchState('play');
 };
 
 game.states.addState(intro);
