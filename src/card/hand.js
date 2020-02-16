@@ -7,7 +7,7 @@ class Hand {
     // buffer on the x axis
     static cardXOffset = 10;
 
-    static height = 500;
+    static height = 350;
 
     //static width = 500;
 
