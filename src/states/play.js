@@ -88,8 +88,8 @@ play.create = function () {
     /// start building the hand
     ///
 
-    this.hand = new Hand(5, new Kiwi.Group(this));
-	this.discard = new Hand(100, new Kiwi.Group(this));
+    this.hand = new Hand(5, this);
+	this.discard = new Hand(100, this);
 	
     this.cards = cardGenerator.generate();
 	
@@ -106,19 +106,6 @@ play.create = function () {
     //     },
     //     this
     // );
-
-    //
-    // Add elements to the state
-    //
-
-    // this.hand.addChild(this.whiteCatsAttack);
-    // this.hand.addChild(this.blackCatsAttack);
-    // this.hand.addChild(this.whiteCatsBlock);
-    // this.hand.addChild(this.blackCatsBlock);
-    // this.hand.addChild(this.whiteCatsAttackAndBlock);
-    // this.hand.addChild(this.blackCatsAttackAndBlock);
-    // this.hand.addChild(this.blackAndWhiteCatsAttack);
-    // this.hand.addChild(this.blackAndWhiteCatsBlock);
 
     this.addChild(this.background);
 
@@ -156,9 +143,12 @@ play.makeBad = function(badPlan) {
 
 // creates a cat object for a cat plan?
 play.makeCard = function(cardPlan) {
+
+    var sprite = new Kiwi.GameObjects.Sprite(this, this.textures[cardPlan.sprite], 0, 0);
+
     return new Card(
         cardPlan.name,
-        new Kiwi.GameObjects.Sprite(this, this.textures[cardPlan.sprite], 0, 0),
+        sprite,
         cardPlan.colors,
         cardPlan.actions
     );
