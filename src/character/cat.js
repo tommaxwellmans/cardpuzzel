@@ -12,6 +12,10 @@ class Cat extends Character {
     getColor() {
         return this.color;
     }
+	
+	getSprite() {
+		return this.sprite;
+	}
 
     obeys(card) {
         let obeys = false;
