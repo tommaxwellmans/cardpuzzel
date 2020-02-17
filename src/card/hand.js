@@ -51,7 +51,7 @@ class Hand {
         card.getSprite().x = Hand.cardXOffset + Hand.cardSpacing * this.cards.length;
 
         card.getSprite().input.onEntered.add( this.highlightCard, this );
-        card.getSprite().input.onLeft.add( this.lowLightCard, this );
+        card.getSprite().input.onLeft.add( this.onCardLeft, this );
 
         card.makeClickable();//get the card to have a click listener
         card.setHand(this);//tell it what hand it is in
@@ -73,7 +73,7 @@ class Hand {
         }
 
         // force the previous card back into its normal position
-        this.lowLightCard(this.highLightedCard);
+        this.lowLightCard();
 
         //    this.cards.splice(this.cards.indexOf(clickedCard), 1);
         cardSprite.y = Hand.highLightedHeight;//clicks are bubbling
@@ -86,7 +86,16 @@ class Hand {
 
     }
 
-    lowLightCard(cardSprite) {
+    onCardLeft(card) {
+
+        // we only care about minimising the highlighted card
+        if (this.highLightedCard !== card) {
+            return;
+        }
+        this.lowLightCard();
+    }
+
+    lowLightCard() {
 
         console.log("Left card");
 
