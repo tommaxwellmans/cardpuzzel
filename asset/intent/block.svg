@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="25"
+   height="35"
+   viewBox="0 0 25 35.000001"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="block.svg"
+   inkscape:export-filename="C:\Users\Tom\WebstormProjects\cardpuzzel2\asset\intent\block.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="-1.4665305"
+     inkscape:cy="32.781123"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1017.3622)">
+    <path
+       style="fill:#000000;stroke:#ffffff;stroke-width:1;stroke-opacity:1"
+       d="m 4.1239333,1042.3586 c -1.569573,-3.4063 -3.23974444,-9.8331 -3.28043195,-15.0875 -0.0264741,-3.4208 0.20759265,-3.9554 0.20759265,-3.9554 0.5450018,0 2.7079676,-1.2011 3.8882392,-2.4616 l 2.1459506,-2.2917 5.4147162,-0.2037 5.414716,0.2037 2.14595,2.2917 c 1.180272,1.2605 3.343238,2.4616 3.88824,2.4616 0,0 0.234067,0.5347 0.207593,3.9554 -0.04069,5.2544 -1.71086,11.6812 -3.280433,15.0875 -1.354685,2.94 -5.648295,7.326 -8.376066,8.9252 -2.727772,-1.6573 -7.0213809,-5.9853 -8.3760667,-8.9252 z"
+       id="path4147"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sscscccscsscs" />
+  </g>
+</svg>

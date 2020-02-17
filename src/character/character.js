@@ -1,9 +1,11 @@
 class Character {
-    constructor(sprite) {
+    constructor(group, sprite) {
+        this.group = group;
+        this.sprite = sprite;
+        this.group.addChild(sprite);
         this.health = 1;
         this.attack = 1;
         this.block = 0;
-        this.sprite = sprite;
     }
 
     isAlive() {
@@ -15,15 +17,15 @@ class Character {
     }
 
     getSprite() {
-        return this.sprite;
+        return this.group;
     }
 
     getWidth() {
-        return this.getSprite().width;
+        return this.sprite.width;
     }
 
     getHeight() {
-        return this.getSprite().height;
+        return this.sprite.height;
     }
 
     hurt (damage) {

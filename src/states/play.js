@@ -33,6 +33,9 @@ play.preload = function () {
 
     this.addSpriteSheet( 'bad1', 'asset/bad/badSheet1.png', 60, 40);
 
+    this.addImage('attackIntent', 'asset/intent/attack.png');
+    this.addImage('blockIntent', 'asset/intent/block.png');
+
 };
 
 play.create = function () {
@@ -90,9 +93,7 @@ play.create = function () {
 	this.discard = new Hand(100, this);
 	
     this.cards = cardGenerator.generate();
-	
-	
-	
+
     this.cards.forEach( card => play.hand.addCard(play.makeCard(card)) );
 
     ///
@@ -133,12 +134,21 @@ play.makeCat = function(catPlan) {
             sprite =  new Kiwi.GameObjects.Sprite(this, this.textures.catBlack, 0, 0);
             break;
     }
-    return new Cat(catPlan.color, sprite);
+    return new Cat(
+        new Kiwi.Group(this),
+        sprite,
+        catPlan.color
+    );
 };
 
 // creates a cat object for a cat plan?
 play.makeBad = function(badPlan) {
-    return new Bad(new Kiwi.GameObjects.Sprite(this, this.textures.bad1, 0, 0));
+    return new Bad(
+        new Kiwi.Group(this),
+        new Kiwi.GameObjects.Sprite(this, this.textures.bad1, 0, 0),
+        new Kiwi.GameObjects.Sprite(this, this.textures.attackIntent, 10, -35),
+        new Kiwi.GameObjects.Sprite(this, this.textures.blockIntent, 10, -35)
+    );
 };
 
 // creates a cat object for a cat plan?

@@ -3,8 +3,8 @@ function BadGenerator (amount) {
 }
 
 BadGenerator.prototype.generate = function () {
-    var badThings = [];
-    for (var i = 0; i < this.amount; i++) {
+    let badThings = [];
+    for (let i = 0; i < this.amount; i++) {
         badThings.push(
             {
                 lane: Math.floor(Math.random() * 10) % 3,
