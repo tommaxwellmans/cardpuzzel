@@ -8,7 +8,8 @@ CatGenerator.prototype.generate = function () {
         cats.push(
             {
                 lane: Math.floor(Math.random() * 10) % 3,
-                color: ((Math.floor(Math.random() * 10) % 2) === 0 ? CatColor.White :  CatColor.Black)
+                color: (Math.floor(Math.random() * 10) % 2),
+                stance: (Math.floor(Math.random() * 10) % 4)
             }
         );
     }

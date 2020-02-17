@@ -78,41 +78,6 @@ play.create = function () {
     this.cats = catGenerator.generate();
     this.cats.forEach( cat => play.lanes[cat.lane].addCat(play.makeCat(cat)) );
 
-	this.lanes[0].getCats()[0].getSprite().x = 400;
-	
-	this.lanes[0].getCats()[0].getSprite().animation.add( "tailwiggle", [ 4,5,6,7], 0.1, true );
-	
-	this.lanes[0].getCats()[0].getSprite().animation.add( "pounce", [0,1,2,3,4,14,28,29,30,31,28,29,30,31,4,5,6,7],0.1,false);
-	
-	this.lanes[0].getCats()[0].getSprite().animation.add( "yowl", [ 16,17,18,19,20,21,22,23], 0.1, true );
-	
-	this.lanes[0].getCats()[0].getSprite().animation.add( "walkright", [ 24,25,26,27], 0.1, true );
-	
-	
-	this.lanes[1].getCats()[1].getSprite().animation.add( "yowl", [ 16,17,18,19,20,21,22,23], 0.1, true );
-	this.lanes[1].getCats()[0].getSprite().animation.add( "tailwiggle", [ 4,5,6,7], 0.1, true );
-	this.lanes[0].getCats()[1].getSprite().animation.add( "walkright", [ 24,25,26,27], 0.1, true );
-	
-	this.lanes[1].getCats()[1].getSprite().animation.play( "yowl");
-	this.lanes[1].getCats()[0].getSprite().animation.play( "tailwiggle");
-	this.lanes[0].getCats()[1].getSprite().animation.play( "walkright");
-	
-	//this.linearX = this.game.tweens.create(this.lanes[0].getCats()[0].getSprite());
-    //this.linearX.to({x: 500}, 1000, Kiwi.Animations.Tweens.Easing.Linear.Out, true);
-	
-	//this.lanes[0].getCats()[0].getSprite().animation.play( "yowl");
-	//code for tweening the cat to attack and back
-	
-	this.lanes[0].getCats()[0].getSprite().animation.play( "pounce");
-	this.chainTo = this.game.tweens.create(this.lanes[0].getCats()[0].getSprite());
-    this.chainTo.to({x: 1100}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
-
-    this.chainBack = this.game.tweens.create(this.lanes[0].getCats()[0].getSprite());
-    this.chainBack.to({x: 400}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
-    this.chainTo.chain(this.chainBack);
-    this.chainTo.start();
-	
-	
     //
     // add bad things to the lanes
     //
@@ -169,10 +134,17 @@ play.makeCat = function(catPlan) {
             sprite =  new Kiwi.GameObjects.Sprite(this, this.textures.catBlack, 0, 0);
             break;
     }
+
+    sprite.animation.add( "pounce", [0,1,2,3,4,14,28,29,30,31,28,29,30,31,4,5,6,7],0.1,false);
+    sprite.animation.add( "walkRight", [ 24,25,26,27], 0.1, true );
+    sprite.animation.add( "yowl", [ 16,17,18,19,20,21,22,23], 0.1, true );
+    sprite.animation.add( "tailWiggle", [ 4,5,6,7], 0.1, true );
+
     return new Cat(
         new Kiwi.Group(this),
         sprite,
-        catPlan.color
+        catPlan.color,
+        catPlan.stance
     );
 };
 
