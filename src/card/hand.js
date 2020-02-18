@@ -1,8 +1,11 @@
 class Hand {
 
+    static cardRotation = Math.PI / 16;
+
+    static cardRotationHeavy = Math.PI / 8;
 
     // constant of spacing between cards in the had
-    static cardSpacing = 175;
+    static cardSpacing = 220;
 
     // buffer on the x axis
     static cardXOffset = 10;
@@ -27,6 +30,34 @@ class Hand {
         this.group = new Kiwi.Group(state);
         this.group.y = GameDimension.Height - Hand.height;
         this.world = null;
+
+        this.firstCardSlot = new Kiwi.Group(state);
+        this.firstCardSlot.rotation =   -(Hand.cardRotationHeavy);
+        this.firstCardSlot.y = 140;
+
+        this.secondCardSlot = new Kiwi.Group(state);
+        this.secondCardSlot.rotation = - (Hand.cardRotation);
+        this.secondCardSlot.y = 50;
+
+        this.thirdCardSlot = new Kiwi.Group(state);
+
+        this.fourthCardSlot = new Kiwi.Group(state);
+        this.fourthCardSlot.rotation = Hand.cardRotation;
+        this.fourthCardSlot.y = 10;
+
+        this.fithCardSlot = new Kiwi.Group(state);
+        this.fithCardSlot.rotation = Hand.cardRotationHeavy;
+        this.fithCardSlot.y  = 60;
+
+        this.cardSlots = [ this.firstCardSlot, this.secondCardSlot, this.thirdCardSlot, this.fourthCardSlot, this.fithCardSlot];
+
+        this.cardSlots.forEach(
+            (slot, index) => {
+                this.group.addChild(slot);
+                slot.x = Hand.cardXOffset + Hand.cardSpacing * index;
+            }
+        );
+
     }
 
     setWorld(world) {
@@ -47,21 +78,15 @@ class Hand {
             return;
         }
 
-        // adjust for amount of cat in the lane
-        card.getSprite().x = Hand.cardXOffset + Hand.cardSpacing * this.cards.length;
+        this.cards.push(card);
+        this.reorder();
 
         card.getSprite().input.onEntered.add( this.highlightCard, this );
         card.getSprite().input.onLeft.add( this.onCardLeft, this );
 
+
         card.makeClickable();//get the card to have a click listener
         card.setHand(this);//tell it what hand it is in
-
-        // add to the list of cats
-        this.cards.push(card);
-
-        // add the cat sprite to the lanes gui
-        this.group.addChild(card.getSprite());
-
     }
 
     highlightCard(cardSprite) {
@@ -133,11 +158,22 @@ class Hand {
 
         //this.group.removeChild(clickedCard.getSprite());
 
+        //this.reorder();
 
         //cards/or the hand need to have a pointer to the discard pile (hand object) if we want them to go there
         //this.discard.push(card);//could instead add it to active cards for comboes
+    }
 
+    reorder() {
 
+        this.cards.forEach((card, index ) => {
+            let currentCardSlot = this.cardSlots[index];
+            currentCardSlot.clear();
+            currentCardSlot.addChild(card.getSprite());
+        });
+
+        // set the group to be drity
+        //this.group.
 
     }
 
