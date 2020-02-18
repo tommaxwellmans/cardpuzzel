@@ -15,7 +15,7 @@ class Deck {
         // does some shuffling here
         for (let count = 0; count < Deck.switchAmount; count++) {
 
-             tempIndex = Math.random() * 100 % this.deck.length;
+             tempIndex = Math.floor(Math.random() * 100) % this.deck.length;
              tempCard = this.deck[0];
              this.deck[0] = this.deck[tempIndex];
              this.deck[tempIndex] = tempCard;
