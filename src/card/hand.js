@@ -169,7 +169,9 @@ class Hand {
         this.cards.forEach((card, index ) => {
             let currentCardSlot = this.cardSlots[index];
             currentCardSlot.clear();
-            currentCardSlot.addChild(card.getSprite());
+
+            let sprite = card.getSprite();
+            currentCardSlot.addChild(sprite);
         });
 
         // set the group to be drity

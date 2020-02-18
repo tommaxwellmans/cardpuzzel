@@ -89,12 +89,10 @@ play.create = function () {
     /// start building the hand
     ///
 
+    this.cards = this.makeCards();
+    this.deck = new Deck(this.cards);
     this.hand = new Hand(5, this);
 	this.discard = new Hand(100, this);
-	
-    this.cards = cardGenerator.generate();
-
-    this.cards.forEach( card => play.hand.addCard(play.makeCard(card)) );
 
     ///
     /// Build the game system object
@@ -148,7 +146,7 @@ play.makeCat = function(catPlan) {
     );
 };
 
-// creates a cat object for a cat plan?
+// creates a bad object for a cat plan?
 play.makeBad = function(badPlan) {
     return new Bad(
         new Kiwi.Group(this),
@@ -159,16 +157,23 @@ play.makeBad = function(badPlan) {
 };
 
 // creates a cat object for a cat plan?
-play.makeCard = function(cardPlan) {
+play.makeCards = function() {
 
-    var sprite = new Kiwi.GameObjects.Sprite(this, this.textures[cardPlan.sprite], 0, 0);
+    let cards = [];
+    let plans = cardGenerator.generate();
 
-    return new Card(
-        cardPlan.name,
-        sprite,
-        cardPlan.colors,
-        cardPlan.actions
+    plans.forEach(
+        plan => cards.push(
+            new Card(
+                plan.name,
+                new Kiwi.GameObjects.Sprite(this, this.textures[plan.sprite], 0, 0),
+                plan.colors,
+                plan.actions
+            )
+        )
     );
+
+    return cards;
 };
 
 game.states.addState(play);

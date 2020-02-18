@@ -8,6 +8,14 @@ class World {
         this.discard = discard;
         this.lanes = lanes;
         this.lanes.forEach(l => l.setWorld(this));
+
+        this.hand.addCard(this.deck.dealTopCard());
+        this.hand.addCard(this.deck.dealTopCard());
+        this.hand.addCard(this.deck.dealTopCard());
+        this.hand.addCard(this.deck.dealTopCard());
+        this.hand.addCard(this.deck.dealTopCard());
+
+
     }
 
     play(card) {

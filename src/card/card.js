@@ -5,7 +5,7 @@ class Card {
         this.sprite = sprite;
         this.catColors = catColors;
         this.actions = actions;
-        this.hand = null;//this hsa to be set after the card is generated, when it is added to the hand!
+        this.hand = null; //this hsa to be set after the card is generated, when it is added to the hand!
     }
 
     getName() {
