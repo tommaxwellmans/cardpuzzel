@@ -1,11 +1,13 @@
-const Actions = Object.freeze({ "Attack" : 1, "Block": 2});
+const Actions = Object.freeze({ 'Attack' : 1, 'Block': 2});
 
-const CatColor = Object.freeze( { 'White': 0,  'Black': 1} );
+const CatColor = Object.freeze({ 'White': 0,  'Black': 1});
 
-const LaneNumber = Object.freeze( { 'Lane1': 0} );
+const LaneNumber = Object.freeze({ 'Lane1': 0});
 
-const GameDimension = Object.freeze( { 'Width': 1400, 'Height': 900, } );
+const GameDimension = Object.freeze({ 'Width': 1400, 'Height': 900, });
 
-const BadGuyIntents = Object.freeze( {'Attack': 0, 'Block': 1});
+const BadGuyIntents = Object.freeze({ 'Attack': 0, 'Block': 1});
 
-const CatStances = Object.freeze({'pounce': 0, 'walkRight': 1, 'yowl': 2, 'tailWiggle': 3});
+const CatStances = Object.freeze({ 'pounce': 0, 'walkRight': 1, 'yowl': 2, 'tailWiggle': 3});
+
+const DamageType = Object.freeze({ 'physical':'PHYSICAL'});
