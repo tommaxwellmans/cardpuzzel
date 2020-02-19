@@ -60,7 +60,9 @@ play.create = function () {
     this.lanes = [];
     this.lane1 = new Lane (
         new Kiwi.Group(this),
-        new Kiwi.GameObjects.StaticImage(this, this.textures.lane, 0, 0)
+        new Kiwi.GameObjects.StaticImage(this, this.textures.lane, 0, 0),
+		this.game
+		
     );
     this.lanes[LaneNumber.Lane1] = this.lane1;
 
@@ -120,7 +122,7 @@ play.makeCat = function(catPlan) {
             break;
     }
 
-    sprite.animation.add( "pounce", [0,1,2],0.1, true);
+    sprite.animation.add( "pounce", [24,0,1,2,3,4,14,28,29,30,31,28,29,30,31,4,5,6,7],0.1, false);
     sprite.animation.add( "walkRight", [ 24,25,26,27], 0.1, true );
     sprite.animation.add( "yowl", [ 16,17,18,19,20,21,22,23], 0.1, true );
     sprite.animation.add( "tailWiggle", [ 4,5,6,7], 0.1, true );

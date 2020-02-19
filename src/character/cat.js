@@ -53,7 +53,7 @@ class Cat extends Character {
 
 	changeStance(stance) {
         this.stance = stance;
-
+		
         switch (stance) {
             case CatStances.pounce:
                 this.sprite.animation.play("pounce");
