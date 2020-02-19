@@ -60,17 +60,17 @@ play.create = function () {
     );
     this.lanes[LaneNumber.Lane1] = this.lane1;
 
-    this.lane2 = new Lane (
-        new Kiwi.Group(this),
-        new Kiwi.GameObjects.StaticImage(this, this.textures.lane, 0, 0)
-    );
-    this.lanes[LaneNumber.Lane2] = this.lane2;
+    // this.lane2 = new Lane (
+    //     new Kiwi.Group(this),
+    //     new Kiwi.GameObjects.StaticImage(this, this.textures.lane, 0, 0)
+    // );
+    // this.lanes[LaneNumber.Lane2] = this.lane2;
 
-    this.lane3 = new Lane (
-        new Kiwi.Group(this),
-        new Kiwi.GameObjects.StaticImage(this, this.textures.lane, 0, 0)
-    );
-    this.lanes[LaneNumber.Lane3] = this.lane3;
+    // this.lane3 = new Lane (
+    //     new Kiwi.Group(this),
+    //     new Kiwi.GameObjects.StaticImage(this, this.textures.lane, 0, 0)
+    // );
+    // this.lanes[LaneNumber.Lane3] = this.lane3;
 
     //
     // add cats to lanes
@@ -109,9 +109,7 @@ play.create = function () {
 
     this.addChild(this.background);
 
-    this.addChild(this.lane1.getGroup());
-    this.addChild(this.lane2.getGroup());
-    this.addChild(this.lane3.getGroup());
+    this.lanes.forEach(l => this.addChild(l.getGroup()));
 
     this.addChild(this.hand.getGroup());
 
