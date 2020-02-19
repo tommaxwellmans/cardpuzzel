@@ -73,6 +73,10 @@ class Lane {
 
         let cats = this.matchingCats(card);
 
+        ///
+        /// Cats do their actions
+        ///
+
         card.getActions().forEach(a => {
             switch (a) {
                 case Actions.Attack:
@@ -83,6 +87,17 @@ class Lane {
                     break;
             }
         });
+
+        ///
+        /// Big bad does their action
+        ///
+
+        this.bads.forEach(bad => {
+            cats.forEach(cat => {
+                cat.hurt(bad.getAttack())
+            })
+        });
+
     }
 
     getNearRestBad() {

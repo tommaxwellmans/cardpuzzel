@@ -85,7 +85,6 @@ play.create = function () {
     this.cards = this.makeCards();
     this.deck = new Deck(this.cards);
     this.hand = new Hand(5, this);
-    this.discard = new Hand(100, this);
 
     ///
     /// Build the game system object
@@ -94,7 +93,6 @@ play.create = function () {
     this.world = new World(
         this.hand,
         this.deck,
-        this.discard,
         this.lanes
     );
 
@@ -126,6 +124,7 @@ play.makeCat = function(catPlan) {
     sprite.animation.add( "walkRight", [ 24,25,26,27], 0.1, true );
     sprite.animation.add( "yowl", [ 16,17,18,19,20,21,22,23], 0.1, true );
     sprite.animation.add( "tailWiggle", [ 4,5,6,7], 0.1, true );
+    sprite.animation.add( "dead", [11], 0.1, true );
 
     return new Cat(
         new Kiwi.Group(this),
@@ -155,7 +154,7 @@ play.makeCards = function() {
         plan => cards.push(
             new Card(
                 plan.name,
-                new Kiwi.GameObjects.Sprite(this, this.textures[plan.sprite], 0, 0),
+                this.textures[plan.sprite],
                 plan.colors,
                 plan.actions
             )
