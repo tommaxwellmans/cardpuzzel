@@ -32,7 +32,7 @@ play.preload = function () {
     this.addSpriteSheet( 'catBlack', 'asset/cat/spritesheet4.png', 60, 40);
     this.addSpriteSheet( 'catWhite', 'asset/cat/spritesheet4white.png', 60, 40);
 
-    this.addSpriteSheet( 'bad1', 'asset/bad/badSheet1.png', 60, 40);
+    this.addSpriteSheet( 'bad1', 'asset/bad/badSheet1.png', 180, 120);
 
     this.addImage('attackIntent', 'asset/intent/attack.png');
     this.addImage('blockIntent', 'asset/intent/block.png');
