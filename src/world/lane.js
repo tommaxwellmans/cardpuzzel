@@ -25,6 +25,8 @@ class Lane {
         this.cats = [];
         this.bads = [];
 
+        this.animationList = new ActionList();
+
     }
 
     setWorld(world) {
@@ -75,7 +77,6 @@ class Lane {
 
         
 		let cats = this.matchingCats(card);
-		
 
         ///
         /// Cats do their actions
@@ -102,6 +103,7 @@ class Lane {
             })
         });
 
+        this.animationList.play();
     }
 
     getNearRestBad() {
@@ -120,10 +122,6 @@ class Lane {
 
         let self = this;
 
-		//console.log("number of affected cats" + matcats.length);
-
-			var i = 0;
-	
         matcats.forEach(cat => {//using the this.cats did not retain the change from play function and matching cats call
             let nearestBad = self.getNearRestBad();
             if (nearestBad != null) {
@@ -131,50 +129,20 @@ class Lane {
             }
 			
 			console.log("changing a stance");
-			
-			
-			
-			
-        });
-		
-		
-		matcats[0].changeStance(0);
-		var startpos = matcats[0].getSprite().x;
-		this.chainTo = this.game.tweens.create(matcats[0].getSprite());//i can't do this from the foreach and i can't loop through the cats in matcats and do it!
-		this.chainTo.to({x: 1150}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
-		//this.chainTo.onComplete(console.log("finished tween"), this);
-		this.chainBack = this.game.tweens.create(matcats[0].getSprite());
-		this.chainBack.to({x: startpos}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
-		this.chainTo.chain(this.chainBack);
-    
-		this.chainTo.start();
-		
-			//
-			
-	}
-	
-	/*
-	this.chainTo = this.game.tweens.create(this.lanes[0].getCats()[0].getSprite());
-    this.chainTo.to({x: x}, i*1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
-	this.chainTo.onComplete ( cat.changeStance(1); , this)
-	
-	
-			this.chainTo.onComplete ( cat.changeStance(1); , this)
-			let i=i+1;
-			
-			
-	
-	
-	this.chainTo = this.game.tweens.create(this.lanes[0].getCats()[0].getSprite());
-    this.chainTo.to({x: 1100}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
+            cat.changeStance(0);
+            var startpos = cat.getSprite().x;
 
-    this.chainBack = this.game.tweens.create(this.lanes[0].getCats()[0].getSprite());
-    this.chainBack.to({x: 400}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
-    this.chainTo.chain(this.chainBack);
-    this.chainTo.start();
-	*/
-	
-	
+            let chainTo = this.game.tweens.create(cat.getSprite());
+            chainTo.to({x: 1150}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
+            let chainBack = this.game.tweens.create(cat.getSprite());
+            chainBack.to({x: startpos}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
+            chainTo.chain(chainBack);
+
+            this.animationList.add(chainTo, chainBack);
+
+        });
+
+	}
 
     catsBlock(matcats) {
         matcats.forEach(c => {
