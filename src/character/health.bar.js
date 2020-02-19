@@ -49,7 +49,7 @@ class HealthBar {
      * @param percent
      */
     update (percent) {
-        let tween = game.tweens.create( his.bar);
+        let tween = game.tweens.create( this.bar);
         tween.to(
             { scaleX: percent },
             500,

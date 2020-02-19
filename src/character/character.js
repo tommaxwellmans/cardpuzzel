@@ -13,7 +13,7 @@ class Character {
     }
 
     getAttack() {
-        return this.attack;
+        return new Kiwi.Plugins.DamagePipeline.Pack({value: 1, tags: DamageType.physical});
     }
 
     getSprite() {

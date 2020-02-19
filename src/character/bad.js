@@ -5,6 +5,8 @@ class Bad extends Character {
     constructor(group, sprite, attackIntentSprite, blockIntentSprite) {
         super(group,sprite);
 
+        var self = this;
+
         this.attackIntentSprite = attackIntentSprite;
         this.blockIntentSprite = blockIntentSprite;
 
@@ -14,6 +16,11 @@ class Bad extends Character {
         this.changeMode(Bad.intentGenerator.generate());
 
         ///
+        /// Create health ui
+        ///
+        let healthBar = new HealthBar(this.group.state, 0, this.sprite.height + 5, this.sprite.width, 5);
+
+        ///
         /// Create damage pipeline
         ///
 
@@ -21,22 +28,16 @@ class Bad extends Character {
             name: "Physical Armor",
             tags: DamageType.physical,
             operation: function( pack ) {
-                pack.value -= 10;
+                //pack.value -= 10;
             }
         });
 
-        let healthMeter = new Kiwi.Plugins.DamagePipeline.MeterNode( {
+        this.healthMeter = new Kiwi.Plugins.DamagePipeline.MeterNode( {
                 name: "Health Meter",
+                valueMax: 10,
                 doOnReceive: function( pack ) {
-
-                    // doOnReceive contains the default functionality of
-                    // applying the packs damage which we do want to override.
-                    // If you did not call the super you would have to add
-                    // your own meter management algorthim
                     Kiwi.Plugins.DamagePipeline.MeterNode.prototype.doOnReceive.call ( this, pack );
-
-
-
+                    healthBar.update(this.valueNormalized);
                 },
                 doOnMax: function( pack ) {
                 },
@@ -48,16 +49,7 @@ class Bad extends Character {
                 }
             })
         ;
-
-        this.pipeline.onExhaust.add( (function() { this.notify( 'Physical damage nullified!');} ).bind(this) );
-
-        this.pipeline.addChild(healthMeter);
-
-        ///
-        /// Create health ui
-        ///
-
-        this.healthBar = new HealthBar(this.group.state, 0, this.sprite.height + 5, this.sprite.width, 5);
+        this.pipeline.addChild(this.healthMeter);
 
         /**
          this.attackButton1 = new Kiwi.Plugins.Primitives.Rectangle( {
@@ -84,7 +76,7 @@ class Bad extends Character {
     }).bind( this ) );
          */
 
-        this.group.addChild( this.healthBar.getGroup() );
+        this.group.addChild(healthBar.getGroup());
     }
 
     changeMode(intent) {
@@ -102,5 +94,16 @@ class Bad extends Character {
 
         this.intent = intent;
     }
+
+    /**
+     *
+     * Use the damage pipeline on the boss
+     *
+     * @param damage
+     */
+    hurt(damage) {
+        this.pipeline.receive(damage);
+    }
+
 
 }
