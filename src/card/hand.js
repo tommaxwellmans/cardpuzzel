@@ -87,11 +87,6 @@ class Hand {
         this.cards.push(card);
         this.reorder();
 
-        card.getSprite().input.onEntered.add( this.highlightCard, this );
-        card.getSprite().input.onLeft.add( this.onCardLeft, this );
-
-
-        card.makeClickable();//get the card to have a click listener
         card.setHand(this);//tell it what hand it is in
     }
 
@@ -130,7 +125,7 @@ class Hand {
 
         console.log("Left card");
 
-        if (this.highLightedCard === null) {
+        if (this.highLightedCard === null || this.highLightedCard === undefined) {
             return ; // this card is highlighted
         }
         //  if (this.highLightedCard === null && this.highLightedCard  !== cardSprite) {
@@ -157,27 +152,40 @@ class Hand {
 
     removeCard(clickedCard) {
 
-        //console.log("tried to remove" + clickedCard);
-        //console.log("already gone from cards in hand."+this.cards.length);
+        console.log("tried to remove" + clickedCard);
 
-        clickedCard.getSprite().visible = false
-
-        //this.group.removeChild(clickedCard.getSprite());
-
-        //this.reorder();
-
-        //cards/or the hand need to have a pointer to the discard pile (hand object) if we want them to go there
-        //this.discard.push(card);//could instead add it to active cards for comboes
+        let index = this.cards.indexOf(clickedCard);
+        this.cards.splice(index, 1);
+        console.log("already gone from cards in hand."+this.cards.length);
+        this.reorder();
     }
 
     reorder() {
 
+        // Wipe all card slots
+        this.cardSlots.forEach(
+            cardSlot => {
+                cardSlot.getAllChildren().forEach(child => {
+                        child.inputEnabled = false;
+                        cardSlot.removeChild(child);
+                        child.input.onUp.removeAll ();
+                        child.input.onEntered.removeAll ();
+                        child.input.onLeft.removeAll ();
+                        child.destroy()
+                    }
+                );
+            }
+        );
+
         this.cards.forEach((card, index ) => {
             let currentCardSlot = this.cardSlots[index];
-            currentCardSlot.clear();
-
-            let sprite = card.getSprite();
+            let sprite = new Kiwi.GameObjects.Sprite(this.state, card.getTexture(), 0, 0);
             currentCardSlot.addChild(sprite);
+
+            sprite.input.onUp.add( card.play, card);
+            sprite.input.onEntered.add( this.highlightCard, this );
+            sprite.input.onLeft.add( this.onCardLeft, this );
+
         });
 
         // set the group to be drity

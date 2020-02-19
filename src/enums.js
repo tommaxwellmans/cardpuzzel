@@ -8,6 +8,6 @@ const GameDimension = Object.freeze({ 'Width': 1400, 'Height': 900, });
 
 const BadGuyIntents = Object.freeze({ 'Attack': 0, 'Block': 1});
 
-const CatStances = Object.freeze({ 'pounce': 0, 'walkRight': 1, 'yowl': 2, 'tailWiggle': 3});
+const CatStances = Object.freeze({ 'pounce': 0, 'walkRight': 1, 'yowl': 2, 'tailWiggle': 3, 'dead': 4});
 
 const DamageType = Object.freeze({ 'physical':'PHYSICAL'});

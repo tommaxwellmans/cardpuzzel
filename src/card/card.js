@@ -1,8 +1,8 @@
 class Card {
 
-    constructor(name, sprite, catColors, actions, hand) {
+    constructor(name, texture, catColors, actions, hand) {
         this.name = name;
-        this.sprite = sprite;
+        this.texture = texture;
         this.catColors = catColors;
         this.actions = actions;
         this.hand = null; //this hsa to be set after the card is generated, when it is added to the hand!
@@ -12,8 +12,8 @@ class Card {
         return name;
     }
 
-    getSprite() {
-        return this.sprite;
+    getTexture() {
+        return this.texture;
     }
 
     getCatColors() {
@@ -29,27 +29,8 @@ class Card {
         this.hand = hand;
     }
 
-    singleClick (){
-
-        //console.log("clicked card");
+    play() {
         this.hand.play(this);
     }
-
-
-    makeClickable(){
-        //sprite.input.onUp.add( this.singleClick, this );
-        this.getSprite().input.onUp.add( this.singleClick, this );
-
-        // this.redAndBlueAttachCardImage.input.onDown.add(
-        //     function (event) {
-        //         //this.cat1.x += 10;
-        //     },
-        //     this
-        // );
-
-
-    }
-
-
 
 }

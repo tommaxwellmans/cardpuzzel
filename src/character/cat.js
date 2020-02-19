@@ -4,6 +4,39 @@ class Cat extends Character {
         super(group, sprite);
         this.color = color;
         this.changeStance(stance);
+
+        let healthBar = new HealthBar(this.group.state, 0, 0, 50, 5);
+
+        this.pipeline = new Kiwi.Plugins.DamagePipeline.PipelineNode( {
+            name: "Physical Armor",
+            tags: DamageType.physical,
+            operation: function( pack ) {
+                //pack.value -= 10;
+            }
+        });
+
+        this.healthMeter = new Kiwi.Plugins.DamagePipeline.MeterNode( {
+            name: "Health Meter",
+            valueMax: 10,
+            doOnReceive: function( pack ) {
+                Kiwi.Plugins.DamagePipeline.MeterNode.prototype.doOnReceive.call ( this, pack );
+                healthBar.update(this.valueNormalized);
+            },
+            doOnMax: function( pack ) {
+            },
+            doOnOverflow: function( pack ) {
+            },
+            doOnBreak: function( pack ) {
+            },
+            doOnZero: function( pack ) {
+                sprite.animation.play('dead');
+            }
+        })
+        ;
+        this.pipeline.addChild(this.healthMeter);
+
+        this.group.addChild(healthBar.getGroup());
+
     }
 
     /**
@@ -51,6 +84,16 @@ class Cat extends Character {
             }
         );
         return obeys;
+    }
+
+    /**
+     *
+     * Use the damage pipeline on the boss
+     *
+     * @param damage
+     */
+    hurt(damage) {
+        this.pipeline.receive(damage);
     }
 
 }
