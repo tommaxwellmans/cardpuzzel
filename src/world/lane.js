@@ -72,6 +72,8 @@ class Lane {
     play(card) {
 
         let cats = this.matchingCats(card);
+		
+		//console.log("obeying cats=" + cats.length);
 
         card.getActions().forEach(a => {
             switch (a) {
@@ -106,12 +108,17 @@ class Lane {
             if (nearestBad != null) {
                 nearestBad.hurt(cat.getAttack())
             }
+			
+			//cat.changeStance(1);
         });
     }
 
     catsBlock(cats) {
-        this.cats.forEach(c => {
+        this.matchingCats().forEach(c => {
             c.defend(10);
+			
+			//c.changeStance(2);
+			
         });
     }
 
@@ -125,7 +132,7 @@ class Lane {
                 obeyingCats.push(cat);
             }
         });
-
+		
         return obeyingCats;
     }
 

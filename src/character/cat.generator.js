@@ -14,7 +14,9 @@ CatGenerator.prototype.generate = function () {
             {
                 lane: Math.floor(Math.random() * 10) % amountOfLanes,
                 color: Math.floor(Math.random() * 10) % amountOfColors,
-                stance: i % amountOfStances % amountOfStances
+                
+				stance: 0
+				//stance: i % amountOfStances % amountOfStances
             }
         );
     }

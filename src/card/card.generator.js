@@ -1,3 +1,4 @@
+  
 function CardGenerator() {
 }
 
@@ -19,5 +20,5 @@ CardGenerator.prototype.generate = function () {
     {name:"Black and White Cats Block", sprite: "blackAndWhiteCatsBlock", colors:[CatColor.Black, CatColor.White], actions:[Actions.Attack, Actions.Block]},
 
 ]
-
+//test
 };

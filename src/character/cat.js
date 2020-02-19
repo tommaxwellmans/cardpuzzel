@@ -39,6 +39,8 @@ class Cat extends Character {
 
     }
 
+//this won't let you make a card with white cats do this black cats do that
+
     obeys(card) {
         let obeys = false;
         card.getCatColors().forEach(

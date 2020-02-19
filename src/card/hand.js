@@ -97,7 +97,7 @@ class Hand {
 
     highlightCard(cardSprite) {
 
-        console.log("Entered card");
+        //console.log("Entered card");
 
         if (this.highLightedCard  === cardSprite) {
             return ; // this card is all readHighLighted
@@ -150,15 +150,15 @@ class Hand {
     }
 
     play(card) {
-        console.log("played card" + card.getName());
+        //console.log("played card" + card.getName());
         this.world.play(card);
         this.removeCard(card);
     }
 
     removeCard(clickedCard) {
 
-        console.log("tried to remove" + clickedCard);
-        console.log("already gone from cards in hand."+this.cards.length);
+        //console.log("tried to remove" + clickedCard);
+        //console.log("already gone from cards in hand."+this.cards.length);
 
         clickedCard.getSprite().visible = false
 
