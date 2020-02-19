@@ -20,6 +20,9 @@ class Hand {
 
     static highLightedScale = 1.1;
 
+    // replace with some with calculates width and height of the group object
+    static handWidth = 1000;
+
     constructor(limit, state) {
 
         this.state = state;
@@ -57,6 +60,9 @@ class Hand {
                 slot.x = Hand.cardXOffset + Hand.cardSpacing * index;
             }
         );
+
+        // center the hand on screen
+        this.group.x = GameDimension.Width / 2 - Hand.handWidth / 2;
 
     }
 
