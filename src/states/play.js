@@ -2,7 +2,7 @@ var play = new Kiwi.State('play');
 
 const catLaneOffSet = 50;
 
-var badGenerator = new BadGenerator(5);
+var badGenerator = new BadGenerator(1);
 var catGenerator = new CatGenerator(8);
 var cardGenerator = new CardGenerator();
 
