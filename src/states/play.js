@@ -3,10 +3,11 @@ var play = new Kiwi.State('play');
 const catLaneOffSet = 50;
 
 var badGenerator = new BadGenerator(5);
-var catGenerator = new CatGenerator(6);
+var catGenerator = new CatGenerator(8);
 var cardGenerator = new CardGenerator();
 
 play.preload = function () {
+
     Kiwi.State.prototype.preload.call(this);
 
     this.addImage('ground', 'asset/background/ground.png');
@@ -133,7 +134,7 @@ play.makeCat = function(catPlan) {
             break;
     }
 
-    sprite.animation.add( "pounce", [0,1,2,3,4,14,28,29,30,31,28,29,30,31,4,5,6,7],0.1,false);
+    sprite.animation.add( "pounce", [0,1,2],0.1, true);
     sprite.animation.add( "walkRight", [ 24,25,26,27], 0.1, true );
     sprite.animation.add( "yowl", [ 16,17,18,19,20,21,22,23], 0.1, true );
     sprite.animation.add( "tailWiggle", [ 4,5,6,7], 0.1, true );

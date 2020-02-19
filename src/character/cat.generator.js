@@ -9,7 +9,7 @@ CatGenerator.prototype.generate = function () {
             {
                 lane: Math.floor(Math.random() * 10) % 3,
                 color: (Math.floor(Math.random() * 10) % 2),
-                stance: (Math.floor(Math.random() * 10) % 4)
+                stance: (i % Object.keys(CatStances).length)
             }
         );
     }
