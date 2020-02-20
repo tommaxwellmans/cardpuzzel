@@ -122,23 +122,36 @@ class Lane {
 
         let self = this;
 
-        matcats.forEach(cat => {//using the this.cats did not retain the change from play function and matching cats call
+        matcats.forEach((cat, index) => {//using the this.cats did not retain the change from play function and matching cats call
             let nearestBad = self.getNearRestBad();
             if (nearestBad != null) {
                 nearestBad.hurt(cat.getAttack())
             }
 			
 			console.log("changing a stance");
-            cat.changeStance(0);
-            var startpos = cat.getSprite().x;
+            //cat.changeStance(0);
 
-            // let chainTo = this.game.tweens.create(cat.getSprite());
-            // chainTo.to({x: 1150}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
-            // let chainBack = this.game.tweens.create(cat.getSprite());
-            // chainBack.to({x: startpos}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
-            // chainTo.chain(chainBack);
+            let sprite = cat.getSprite();
+            let startpos = sprite.x;
+            let previousAnimationName = sprite.animation.currentAnimation.name;
+
+            let chainTo = this.game.tweens.create(sprite);
+            chainTo.to({x: 1150}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
+            chainTo.delay(index * 250);
+            chainTo.onStart(s => s.animation.play('pounce'), sprite);
+
+            let chainBack = this.game.tweens.create(sprite);
+            chainBack.to({x: startpos}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
+            chainTo.chain(chainBack);
+            chainBack.onComplete( sprite => sprite.animation.play(previousAnimationName), sprite);
+
             //
             // this.animationList.add(chainTo, chainBack);
+
+            chainTo.start();
+
+
+
 
         });
 
