@@ -51,6 +51,10 @@ class Cat extends Character {
 		return this.sprite;
 	}
 
+    /**
+     * @deprecated this no longer works nicely with the more complex attack animations
+     * @param stance
+     */
 	changeStance(stance) {
         this.stance = stance;
 		
