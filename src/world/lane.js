@@ -16,8 +16,8 @@ class Lane {
     constructor(group, background, game) {
 
         this.world = null;
-		this.game = game;
-		
+        this.game = game;
+
         this.group = group;
         this.group.y = Lane.baseOffset + Lane.laneCount++ * Lane.laneSpacing;
         this.background = background;
@@ -75,8 +75,8 @@ class Lane {
      */
     play(card) {
 
-        
-		let cats = this.matchingCats(card);
+
+        let cats = this.matchingCats(card);
 
         ///
         /// Cats do their actions
@@ -97,13 +97,37 @@ class Lane {
         /// Big bad does their action
         ///
 
-        this.bads.forEach(bad => {
-            cats.forEach(cat => {// this isn't supposed to only be the matching cats, cats not affected by card can still get hurt!
-                cat.hurt(bad.getAttack())
-            })
-        });
+        this.bads.forEach((bad, index) => {
 
-        this.animationList.play();
+                ///
+                /// Animate the bad attacking
+                ///
+
+                let sprite = bad.getSprite();
+                let startpos = sprite.x;
+                //let previousAnimationName = sprite.animation.currentAnimation.name;
+
+                let chainTo = this.game.tweens.create(sprite);
+                chainTo.to({x: startpos - 40}, 250, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
+                chainTo.delay(index * 250 + 2000);
+
+                let chainBack = this.game.tweens.create(sprite);
+                chainBack.to({x: startpos}, 250, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
+                chainTo.chain(chainBack);
+                chainBack.onComplete(
+                    cs => {
+                        cats.forEach(cat => {// this isn't supposed to only be the matching cats, cats not affected by card can still get hurt!
+                            cat.hurt(bad.getAttack())
+                        });
+                    }, cats
+                );
+
+                chainTo.start();
+
+            }
+        );
+
+        //this.animationList.play();
     }
 
     getNearRestBad() {
@@ -127,8 +151,8 @@ class Lane {
             if (nearestBad != null) {
                 nearestBad.hurt(cat.getAttack())
             }
-			
-			console.log("changing a stance");
+
+            console.log("changing a stance");
             //cat.changeStance(0);
 
             let sprite = cat.getSprite();
@@ -143,7 +167,7 @@ class Lane {
             let chainBack = this.game.tweens.create(sprite);
             chainBack.to({x: startpos}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
             chainTo.chain(chainBack);
-            chainBack.onComplete( sprite => sprite.animation.play(previousAnimationName), sprite);
+            chainBack.onComplete((sprite) => sprite.animation.play(previousAnimationName), sprite);
 
             //
             // this.animationList.add(chainTo, chainBack);
@@ -155,13 +179,13 @@ class Lane {
 
         });
 
-	}
+    }
 
     catsBlock(matcats) {
         matcats.forEach(
             c => {
                 c.defend(10);
-    			c.changeStance(2);
+                c.changeStance(2);
             }
         );
     }
@@ -176,7 +200,7 @@ class Lane {
                 obeyingCats.push(cat);
             }
         });
-		
+
         return obeyingCats;
     }
 

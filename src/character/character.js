@@ -21,7 +21,7 @@ class Character {
     }
 
     getSprite() {
-        return this.group;
+        return this.sprite;
     }
 
     getWidth() {
