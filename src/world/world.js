@@ -6,6 +6,7 @@ class World {
 
     constructor(game, state, hand, lanes) {
 
+
         this.result = GameResult.playing;
 
         this.game = game;
@@ -38,6 +39,7 @@ class World {
         ///
 
         let catPlans  = World.catGenerator.generate();
+        this.aliveCats = catPlans.length;
         catPlans.forEach(cat => lanes[cat.lane].addCat(this.makeCat(cat)));
 
         this.hand.addCard(this.deck.dealTopCard());
@@ -96,7 +98,8 @@ class World {
             new Kiwi.Group(this.state),
             sprite,
             catPlan.color,
-            catPlan.stance
+            catPlan.stance,
+            this
         );
     }
 
@@ -122,13 +125,22 @@ class World {
 
     win() {
         this.result = GameResult.won;
-
         this.game.victory();
+    }
 
+    /**
+     *  record that a cat is a goner and check if the play has lost the game
+     */
+    catDead() {
+        this.aliveCats -= 1;
+        if (this.aliveCats < 1) {
+            this.lose();
+        }
     }
 
     lose () {
         this.result = GameResult.lost;
+        this.game.defeat();
     }
 
     getResult() {

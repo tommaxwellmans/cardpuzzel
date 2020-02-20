@@ -89,6 +89,31 @@ play.create = function () {
 
 };
 
+play.defeat = function () {
+    let rectangle = new Kiwi.Plugins.Primitives.Rectangle( {
+        state: this,
+        width: GameDimension.Width,
+        height: GameDimension.Height,
+        alpha: 0.5,
+        color: [0,0,0]
+    } );
+    this.addChild(rectangle);
+
+    let tween = this.game.tweens.create(rectangle);
+    tween.to({alpha: 1.0}, 5000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
+    tween.onComplete(
+        function () {
+            //game.tweens.removeAll();
+            game.tweens.remove(tween);
+            play.active = false;
+            game.states.switchState('defeat');
+        }
+    );
+    tween.start();
+
+};
+
+
 play.victory = function () {
     let rectangle = new Kiwi.Plugins.Primitives.Rectangle( {
         state: this,

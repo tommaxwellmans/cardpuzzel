@@ -1,11 +1,12 @@
 class Cat extends Character {
 
-    constructor (group, sprite, color, stance) {
+    constructor (group, sprite, color, stance, world) {
         super(group, sprite);
+        let theWorld = world;
         this.color = color;
         this.changeStance(stance);
 
-        let healthBar = new HealthBar(this.group.state, 0, 0, 50, 5);
+        let healthBar = new HealthBar(this.group.state, 0, sprite.height + 5, sprite.width, 3);
 
         this.pipeline = new Kiwi.Plugins.DamagePipeline.PipelineNode( {
             name: "Physical Armor",
@@ -29,7 +30,7 @@ class Cat extends Character {
             doOnBreak: function( pack ) {
             },
             doOnZero: function( pack ) {
-                sprite.animation.play('dead');
+                theWorld.catDead();
             }
         })
         ;

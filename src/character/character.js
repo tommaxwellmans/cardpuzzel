@@ -16,6 +16,10 @@ class Character {
         return new Kiwi.Plugins.DamagePipeline.Pack({value: 1, tags: DamageType.physical});
     }
 
+    getGroup() {
+        return this.group;
+    }
+
     getSprite() {
         return this.group;
     }

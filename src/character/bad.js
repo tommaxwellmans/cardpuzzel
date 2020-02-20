@@ -35,7 +35,7 @@ class Bad extends Character {
 
         this.healthMeter = new Kiwi.Plugins.DamagePipeline.MeterNode( {
                 name: "Health Meter",
-                valueMax: 10,
+                valueMax: 50,
                 doOnReceive: function( pack ) {
                     Kiwi.Plugins.DamagePipeline.MeterNode.prototype.doOnReceive.call ( this, pack );
                     healthBar.update(this.valueNormalized);
