@@ -2,10 +2,6 @@ var play = new Kiwi.State('play');
 
 const catLaneOffSet = 50;
 
-var badGenerator = new BadGenerator(1);
-var catGenerator = new CatGenerator(8);
-var cardGenerator = new CardGenerator();
-
 play.preload = function () {
 
     Kiwi.State.prototype.preload.call(this);
@@ -61,42 +57,28 @@ play.create = function () {
     this.lane1 = new Lane (
         new Kiwi.Group(this),
         new Kiwi.GameObjects.StaticImage(this, this.textures.lane, 0, 0),
-		this.game
-		
+        this.game
+
     );
     this.lanes[LaneNumber.Lane1] = this.lane1;
-
-    //
-    // add cats to lanes
-    //
-
-    this.cats = catGenerator.generate();
-    this.cats.forEach( cat => play.lanes[cat.lane].addCat(play.makeCat(cat)) );
-
-    //
-    // add bad things to the lanes
-    //
-
-    this.bads = badGenerator.generate();
-    this.bads.forEach( bad => play.lanes[bad.lane].addBad(play.makeBad(bad)) );
 
     ///
     /// start building the hand
     ///
 
-    this.cards = this.makeCards();
-    this.deck = new Deck(this.cards);
+
     this.hand = new Hand(5, this);
+
+    this.world = new World(
+        play,
+        this,
+        this.hand,
+        this.lanes
+    );
 
     ///
     /// Build the game system object
     ///
-
-    this.world = new World(
-        this.hand,
-        this.deck,
-        this.lanes
-    );
 
 
     this.addChild(this.background);
@@ -107,63 +89,28 @@ play.create = function () {
 
 };
 
-// creates a cat object for a cat plan?
-play.makeCat = function(catPlan) {
+play.victory = function () {
+    let rectangle = new Kiwi.Plugins.Primitives.Rectangle( {
+        state: this,
+        width: GameDimension.Width,
+        height: GameDimension.Height,
+        alpha: 0.5,
+        color: [1,1,1]
+    } );
+    this.addChild(rectangle);
 
-    var sprite;
-
-    switch (catPlan.color) {
-        case CatColor.White:
-            sprite =  new Kiwi.GameObjects.Sprite(this, this.textures.catWhite, 0, 0);
-            break;
-        case CatColor.Black:
-        default:
-            sprite =  new Kiwi.GameObjects.Sprite(this, this.textures.catBlack, 0, 0);
-            break;
-    }
-
-    sprite.animation.add( "pounce", [24,0,1,2,3,4,14,28,29,30,31,28,29,30,31,4,5,6,7],0.1, false);
-    sprite.animation.add( "walkRight", [ 24,25,26,27], 0.1, true );
-    sprite.animation.add( "yowl", [ 16,17,18,19,20,21,22,23], 0.1, true );
-    sprite.animation.add( "tailWiggle", [ 4,5,6,7], 0.1, true );
-    sprite.animation.add( "dead", [11], 0.1, true );
-
-    return new Cat(
-        new Kiwi.Group(this),
-        sprite,
-        catPlan.color,
-        catPlan.stance
+    let tween = this.game.tweens.create(rectangle);
+    tween.to({alpha: 1.0}, 5000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
+    tween.onComplete(
+        function () {
+            //game.tweens.removeAll();
+            game.tweens.remove(tween);
+            play.active = false;
+            game.states.switchState('victory');
+        }
     );
-};
+    tween.start();
 
-// creates a bad object for a cat plan?
-play.makeBad = function(badPlan) {
-    return new Bad(
-        new Kiwi.Group(this),
-        new Kiwi.GameObjects.Sprite(this, this.textures.bad1, 0, 0),
-        new Kiwi.GameObjects.Sprite(this, this.textures.attackIntent, 10, -35),
-        new Kiwi.GameObjects.Sprite(this, this.textures.blockIntent, 10, -35)
-    );
-};
-
-// creates a cat object for a cat plan?
-play.makeCards = function() {
-
-    let cards = [];
-    let plans = cardGenerator.generate();
-
-    plans.forEach(
-        plan => cards.push(
-            new Card(
-                plan.name,
-                this.textures[plan.sprite],
-                plan.colors,
-                plan.actions
-            )
-        )
-    );
-
-    return cards;
 };
 
 game.states.addState(play);

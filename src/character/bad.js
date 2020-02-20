@@ -2,10 +2,11 @@ class Bad extends Character {
 
     static intentGenerator = new IntentGenerator();
 
-    constructor(group, sprite, attackIntentSprite, blockIntentSprite) {
+    constructor(world, group, sprite, attackIntentSprite, blockIntentSprite) {
         super(group,sprite);
 
         var self = this;
+        this.world = world;
 
         this.attackIntentSprite = attackIntentSprite;
         this.blockIntentSprite = blockIntentSprite;
@@ -46,35 +47,11 @@ class Bad extends Character {
                 doOnBreak: function( pack ) {
                 },
                 doOnZero: function( pack ) {
+                    world.win();
                 }
             })
         ;
         this.pipeline.addChild(this.healthMeter);
-
-        /**
-         this.attackButton1 = new Kiwi.Plugins.Primitives.Rectangle( {
-        state: this,
-        width: 150,
-        height: 30,
-        color: [ 0.8, 0.8, 0.8 ],
-        drawStroke: true,
-        x: 120,
-        y: 180,
-        enableInput: true
-    } );
-         this.attackButton1Text = new Kiwi.GameObjects.Textfield( this,
-         '5 Physical + 50 Poison',
-         130, 190, '#000', 12 );
-         this.attackButton1.input.onDown.add( (function( event ) {
-
-        let alittleBitOfDamage = new Kiwi.Plugins.DamagePipeline.Pack( {
-            value: 60,
-            tags: DamageType.physical,
-        });
-
-        this.pipeline.receive( alittleBitOfDamage );
-    }).bind( this ) );
-         */
 
         this.group.addChild(healthBar.getGroup());
     }

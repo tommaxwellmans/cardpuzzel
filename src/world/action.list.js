@@ -33,7 +33,11 @@ class ActionList {
      * Play all animations then wipe the list;
      */
     play() {
-        this.firstAnimation.start();
+
+        if (this.firstAnimation !== null) {
+            this.firstAnimation.start();
+        }
+
         this.firstAnimation = null;
         this.previousAnimation = null;
     }

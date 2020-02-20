@@ -132,25 +132,25 @@ class Lane {
             cat.changeStance(0);
             var startpos = cat.getSprite().x;
 
-            let chainTo = this.game.tweens.create(cat.getSprite());
-            chainTo.to({x: 1150}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
-            let chainBack = this.game.tweens.create(cat.getSprite());
-            chainBack.to({x: startpos}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
-            chainTo.chain(chainBack);
-
-            this.animationList.add(chainTo, chainBack);
+            // let chainTo = this.game.tweens.create(cat.getSprite());
+            // chainTo.to({x: 1150}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
+            // let chainBack = this.game.tweens.create(cat.getSprite());
+            // chainBack.to({x: startpos}, 1000, Kiwi.Animations.Tweens.Easing.Quartic.Out, false);
+            // chainTo.chain(chainBack);
+            //
+            // this.animationList.add(chainTo, chainBack);
 
         });
 
 	}
 
     catsBlock(matcats) {
-        matcats.forEach(c => {
-            c.defend(10);
-			
-			c.changeStance(2);
-			
-        });
+        matcats.forEach(
+            c => {
+                c.defend(10);
+    			c.changeStance(2);
+            }
+        );
     }
 
     matchingCats(card) {

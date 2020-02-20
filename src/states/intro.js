@@ -19,8 +19,8 @@ intro.create = function () {
 
     let centeredPressAnyX = GameDimension.Width / 2 - this.textures.pressAnyKey.cellWidth / 2 ;
     this.pressAnyKey = new Kiwi.GameObjects.Sprite(this, this.textures.pressAnyKey, centeredPressAnyX, 400);
-    this.pressAnyKey.animation.add("blinking", [0, 1, 2], 0.1, false);
-    this.pressAnyKey.animation.play("blinking");
+    this.pressAnyKey.animation.add('blinking', [0, 1, 2], 0.1, true);
+    this.pressAnyKey.animation.play('blinking');
 
     this.catsAlong2 = new Kiwi.GameObjects.StaticImage(this, this.textures.catsAlong, 0, 600);
 
@@ -41,7 +41,7 @@ intro.update = function () {
 
 
     if (this.game.input.mouse.isDown) {
-        game.states.switchState('play');
+        this.switchState();
     }
 };
 
