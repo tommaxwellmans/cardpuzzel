@@ -27,11 +27,16 @@ play.preload = function () {
 
     this.addSpriteSheet( 'catBlack', 'asset/cat/spritesheet4.png', 60, 40);
     this.addSpriteSheet( 'catWhite', 'asset/cat/spritesheet4white.png', 60, 40);
+    this.addSpriteSheet( 'catWhite21', 'asset/cat/spritesheet4white.png', 60, 40);
 
     this.addSpriteSheet( 'bad1', 'asset/bad/badSheet1.png', 180, 120);
 
     this.addImage('attackIntent', 'asset/intent/attack.png');
     this.addImage('blockIntent', 'asset/intent/block.png');
+
+    this.addSpriteSheet('archer', 'asset/dude/archer/sprite.png', 99,  436);
+    this.addSpriteSheet('warrior', 'asset/dude/warrior/sprite.png', 99,  436);
+
 
 };
 
@@ -43,49 +48,43 @@ play.create = function () {
     /// Damage Pipeline
     ///
 
-    this.sky = new Kiwi.GameObjects.StaticImage(this, this.textures.sky, 0, 0);
-    this.ground = new Kiwi.GameObjects.StaticImage(this, this.textures.ground, 0, 100);
-
-    this.background = new Kiwi.Group(this);
-    this.background.addChild(this.sky);
-    this.background.addChild(this.ground);
 
     ///
     ///  setup the lanes
     ///
-    this.lanes = [];
-    this.lane1 = new Lane (
-        new Kiwi.Group(this),
-        new Kiwi.GameObjects.StaticImage(this, this.textures.lane, 0, 0),
-        this.game
-
-    );
-    this.lanes[LaneNumber.Lane1] = this.lane1;
+    // this.lanes = [];
+    // this.lane1 = new Lane (
+    //     new Kiwi.Group(this),
+    //     new Kiwi.GameObjects.StaticImage(this, this.textures.lane, 0, 0),
+    //     this.game
+    //
+    // );
+    // this.lanes[LaneNumber.Lane1] = this.lane1;
 
     ///
     /// start building the hand
     ///
 
 
-    this.hand = new Hand(5, this);
+    // this.hand = new Hand(5, this);
 
     this.world = new World(
         play,
-        this,
-        this.hand,
-        this.lanes
+        this
     );
 
     ///
     /// Build the game system object
     ///
 
+    let archerGenerator = new ArcherGenerator(this);
+    let archers = archerGenerator.generate(1);
 
-    this.addChild(this.background);
+    this.world.addDudes(archers);
 
-    this.lanes.forEach(l => this.addChild(l.getGroup()));
-
-    this.addChild(this.hand.getGroup());
+    // this.addChild(this.background);
+    // this.lanes.forEach(l => this.addChild(l.getGroup()));
+    // this.addChild(this.hand.getGroup());
 
 };
 
